@@ -18,7 +18,7 @@ const allowedOrigins = [
   "https://ak-surveyapp.netlify.app" // Deployed React 
 ];
 app.use(cors({
-    origin: allowedOrigins,
+    origin: "*",
     credentials: true
 }));
 
