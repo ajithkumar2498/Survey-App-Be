@@ -11,10 +11,23 @@ dotenv.config()
 const app = express()
 const server = http.createServer(app)
 
-const io = new Server(server, {cors:{origin:"*"}})
-
 connectDB()
-app.use(cors())
+
+const allowedOrigins = [
+  "http://localhost:5173",             // Local React
+  "https://ak-surveyapp.netlify.app/" // Deployed React 
+];
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
+
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins, // Use the same array
+    methods: ["GET", "POST"]
+  }
+});
 app.use(express.json())
 
 app.set('socketio', io)
